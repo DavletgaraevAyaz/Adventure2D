@@ -36,6 +36,8 @@ public class OpenFirstLevel : MonoBehaviour
             _dialogPanel.SetActive(true);
             _winPanel.SetActive(true);
             _isOpen = true;
+            GameModeManager.Instance.IsFirstCompleted = true;
+            GameModeManager.Instance.IsSecondLevelCompleted = true;
         }
     }
 

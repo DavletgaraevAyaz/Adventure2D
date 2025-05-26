@@ -58128,9 +58128,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 841322840}
-        m_TargetAssemblyTypeName: OpenScenes, Assembly-CSharp
-        m_MethodName: OpenThirdLelvel
+      - m_Target: {fileID: 841322846}
+        m_TargetAssemblyTypeName: RestartScenes, Assembly-CSharp
+        m_MethodName: RestartThirdLelvel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

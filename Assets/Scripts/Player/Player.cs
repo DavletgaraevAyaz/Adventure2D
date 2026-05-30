@@ -220,6 +220,6 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerAttack(object sender, System.EventArgs e)
     {
-        ActiveWeapon.Instance.GetActiveWeapon().Attack();
+       // ActiveWeapon.Instance.GetActiveWeapon().Attack();
     }
 }

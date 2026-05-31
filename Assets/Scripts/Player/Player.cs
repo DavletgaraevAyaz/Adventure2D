@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
+        
     }
 
     private void Start()
@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         _isAlive = true;
         OnPlayerHealthChanges?.Invoke(_currentHealth, _maxHealth);
         _healthRegenTimer = _healthRegenInterval;
+        GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
     }
 
     private void OnDisable()

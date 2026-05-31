@@ -26,4 +26,10 @@ public class OpenScenes : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("Card");
     }
+
+    public void OpenFirstWizard()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("FirstLevelForWizard");
+    }
 }

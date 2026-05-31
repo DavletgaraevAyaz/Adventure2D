@@ -23,7 +23,7 @@ public class ActiveWeapon : MonoBehaviour
     }
 
 
-    public Sword GetActiveWeapon() 
+    public Sword GetSword() 
     {
         return sword;
     }

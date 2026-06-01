@@ -32,4 +32,15 @@ public class OpenScenes : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("FirstLevelForWizard");
     }
+
+    public void OpenSecondWizard()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("SecondLevelForWizard");
+    }
+    public void OpenThirdWizard()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ThirdLevelForWizard");
+    }
 }

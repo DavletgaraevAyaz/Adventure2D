@@ -15,11 +15,10 @@ public class ActiveWeapon : MonoBehaviour
 
     private void Update() 
     {
-        if (Player.Instance.IsAlive())
-        {
-            FollowMousePosition();
-        }
-        
+        if (sword == null || !Player.Instance.IsAlive())
+            return;
+
+        FollowMousePosition();
     }
 
 

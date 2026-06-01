@@ -8,7 +8,7 @@ public class ChestOpening : MonoBehaviour
     private Animator _animator;
     private bool _playerOnCollider;
 
-    private const string HINT = "Íàæìèòå F";
+    private const string HINT = " F";
 
     private void Start()
     {
@@ -45,6 +45,8 @@ public class ChestOpening : MonoBehaviour
     public void AddMoneyForPlayer()
     {
         Player.Instance.AddMoney(AddRandomCountMoney());
+
+        AchievementManager.Instance.RegisterChestOpened();
     }
 
     // method for random count

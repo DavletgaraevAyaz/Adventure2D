@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SecondLevelForWizard.unity
     guid: 8e184f473ad9c8e49be9813c80d2f9f4
+  - enabled: 1
+    path: Assets/Scenes/ThirdLevelForWizard.unity
+    guid: 63cb92956252d454fa8b5505c54b99c4
   m_configObjects: {}

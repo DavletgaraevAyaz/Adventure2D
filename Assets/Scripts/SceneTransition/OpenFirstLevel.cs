@@ -38,6 +38,9 @@ public class OpenFirstLevel : MonoBehaviour
             _isOpen = true;
             GameModeManager.Instance.IsFirstCompleted = true;
             GameModeManager.Instance.IsSecondLevelCompleted = true;
+            GameModeManager.Instance.SaveLevelProgress();
+
+            AchievementManager.Instance.RegisterLevelCompleted();
         }
     }
 

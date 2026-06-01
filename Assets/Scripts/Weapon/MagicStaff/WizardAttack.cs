@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WizardAttack : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class WizardAttack : MonoBehaviour
     [SerializeField] private Transform firePoint;
 
     [Header("Stats")]
+    [SerializeField] private Text _damageText;
     [SerializeField] private int damage = 2;
     [SerializeField] private float cooldown = 1.5f;
 
@@ -25,6 +27,7 @@ public class WizardAttack : MonoBehaviour
 
     private void Start()
     {
+        LoadDamage();
         GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
     }
 
@@ -56,6 +59,18 @@ public class WizardAttack : MonoBehaviour
         animator.SetTrigger(ATTACK);
     }
 
+    public void AddDamage()
+    {
+        if (Player.Instance.GetMoney() < 60)
+            return;
+
+        damage += 1;
+        UpdateDamageText();
+        Player.Instance.MinusMoney(60);
+        PlayerPrefs.SetInt("Damage", damage);
+        PlayerPrefs.Save();
+    }
+
     // Animation Event
     public void ShootProjectile()
     {
@@ -65,5 +80,19 @@ public class WizardAttack : MonoBehaviour
                 Quaternion.identity);
 
         projectile.Initialize(savedDirection, damage);
+    }
+
+    private void LoadDamage()
+    {
+        if (PlayerPrefs.HasKey("Damage"))
+            damage = PlayerPrefs.GetInt("Damage");
+
+        UpdateDamageText();
+    }
+
+    private void UpdateDamageText()
+    {
+        if (_damageText != null)
+            _damageText.text = "Damage: " + damage;
     }
 }

@@ -10,15 +10,11 @@ public class EnableButtons : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("SecondLevelInteractable"))
-        {
+        if (PlayerPrefs.HasKey("SecondLevelInteractable") || GameModeManager.Instance.IsFirstCompleted)
             _secondLevelBtn.interactable = true;
-        }
 
-        if (PlayerPrefs.HasKey("ThirdLevelInteractable"))
-        {
+        if (PlayerPrefs.HasKey("ThirdLevelInteractable") || GameModeManager.Instance.IsSecondLevelCompleted)
             _thirdLevelBtn.interactable = true;
-        }
     }
     private void Update()
     {

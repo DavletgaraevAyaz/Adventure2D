@@ -44,6 +44,21 @@ public class EnemyEntity : MonoBehaviour
         DetectDeath();
     }
 
+    public bool IsBoss()
+    {
+        return _enemySO != null && _enemySO.name.Contains("Boss");
+    }
+
+    public bool IsFlyingEye()
+    {
+        return gameObject.name.Contains("FlyingEye");
+    }
+
+    public bool IsFlyingEyeBoss()
+    {
+        return IsFlyingEye() && _enemySO != null && (_enemySO.name.Contains("Boss") || _enemySO.enemyHealth >= 50);
+    }
+
     public void PolygonColliderTurnOff()
     {
         _polygonCollider2D.enabled = false;
@@ -65,6 +80,8 @@ public class EnemyEntity : MonoBehaviour
 
             Player.Instance.AddMoney(_enemySO.money);
             OpenFirstLevel.Instance.AddDestroyedEntry();
+
+            AchievementManager.Instance.RegisterEnemyKill(this);
 
             OnDeath?.Invoke(this, EventArgs.Empty);
         }

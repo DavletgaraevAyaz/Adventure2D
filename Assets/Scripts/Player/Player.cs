@@ -43,11 +43,6 @@ public class Player : MonoBehaviour
         _knockBack = GetComponent<KnockBack>();
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     private void Start()
     {
         LoadMoney();
@@ -118,7 +113,6 @@ public class Player : MonoBehaviour
     {
         _currentHealth = Mathf.Min(_maxHealth, _currentHealth + healAmount);
         OnPlayerHealthChanges?.Invoke(_currentHealth, _maxHealth);
-        Debug.Log($"Player healed! Current health: {_currentHealth}");
     }
     
     public bool IsAlive()
@@ -131,8 +125,7 @@ public class Player : MonoBehaviour
         if(_canTakeDamage && _isAlive)
         {
             _canTakeDamage = false;
-            _currentHealth = Mathf.Max(0, _currentHealth -= damage);
-            Debug.Log(_currentHealth);
+            _currentHealth = Mathf.Max(0, _currentHealth - damage);
 
             OnPlayerHealthChanges?.Invoke(_currentHealth, _maxHealth);
 
@@ -221,6 +214,11 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlayerAttack(object sender, System.EventArgs e)
     {
-       //ActiveWeapon.Instance.GetSword().Attack();
+        if (ActiveWeapon.Instance == null)
+            return;
+
+        Sword sword = ActiveWeapon.Instance.GetSword();
+        if (sword != null)
+            sword.Attack();
     }
 }

@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private int _currentHealth;
     private bool _canTakeDamage;
     private bool _isAlive;
+    private GameInput _gameInput;
 
     private void Awake() {
         Instance = this;
@@ -51,17 +52,39 @@ public class Player : MonoBehaviour
         _isAlive = true;
         OnPlayerHealthChanges?.Invoke(_currentHealth, _maxHealth);
         _healthRegenTimer = _healthRegenInterval;
-        GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
+        _gameInput = GameInput.Instance;
+        if (_gameInput != null)
+            _gameInput.OnPlayerAttack += GameInput_OnPlayerAttack;
     }
 
     private void OnDisable()
     {
-        GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
+        UnsubscribeFromInput();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromInput();
+
+        if (Instance == this)
+            Instance = null;
+    }
+
+    private void UnsubscribeFromInput()
+    {
+        if (_gameInput != null)
+        {
+            _gameInput.OnPlayerAttack -= GameInput_OnPlayerAttack;
+            _gameInput = null;
+        }
     }
 
     private void Update() 
     {
-        _inputVector = GameInput.Instance.GetMovementVector();
+        if (_gameInput == null)
+            return;
+
+        _inputVector = _gameInput.GetMovementVector();
 
         if (_isAlive && _currentHealth < _maxHealth)
         {
@@ -186,9 +209,11 @@ public class Player : MonoBehaviour
             _isAlive = false;
 
             _knockBack.StopKnockBackMovement();
-            GameInput.Instance.DisableMovement();
+            if (GameInput.Instance != null)
+                GameInput.Instance.DisableMovement();
             OnPlayerDeath?.Invoke(this, EventArgs.Empty);
-            _losePanel.SetActive(true);
+            if (_losePanel != null)
+                _losePanel.SetActive(true);
         }
     }
 

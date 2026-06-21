@@ -14,6 +14,7 @@ public class WizardAttack : MonoBehaviour
     [SerializeField] private float cooldown = 1.5f;
 
     private Animator animator;
+    private GameInput _gameInput;
 
     private float nextAttackTime;
 
@@ -29,19 +30,36 @@ public class WizardAttack : MonoBehaviour
     private void Start()
     {
         LoadDamage();
-        GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
+        _gameInput = GameInput.Instance;
+        if (_gameInput != null)
+            _gameInput.OnPlayerAttack += GameInput_OnPlayerAttack;
     }
-
 
     private void OnDisable()
     {
-        if (GameInput.Instance != null)
-            GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
+        UnsubscribeFromInput();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromInput();
+    }
+
+    private void UnsubscribeFromInput()
+    {
+        if (_gameInput != null)
+        {
+            _gameInput.OnPlayerAttack -= GameInput_OnPlayerAttack;
+            _gameInput = null;
+        }
     }
 
     private void GameInput_OnPlayerAttack(object sender, System.EventArgs e)
     {
-        if (!Player.Instance.IsAlive())
+        if (!isActiveAndEnabled || firePoint == null || animator == null)
+            return;
+
+        if (Player.Instance == null || !Player.Instance.IsAlive())
             return;
 
         if (Time.time < nextAttackTime)
@@ -75,6 +93,9 @@ public class WizardAttack : MonoBehaviour
     // Animation Event
     public void ShootProjectile()
     {
+        if (projectilePrefab == null || firePoint == null)
+            return;
+
         MagicProjectile projectile =
             Instantiate(projectilePrefab,
                 firePoint.position,
@@ -85,6 +106,9 @@ public class WizardAttack : MonoBehaviour
     
     public void ShootArrow()
     {
+        if (arrowPrefab == null || firePoint == null)
+            return;
+
         Arrow arrowPrefab1 =
             Instantiate(arrowPrefab,
                 firePoint.position,

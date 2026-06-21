@@ -6776,7 +6776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthRegenInterval: 15
   _healthRegenAmount: 1
-  _movingSpeed: 10
+  _movingSpeed: 4
   _damageRecoveryTime: 0.5
   _maxHealth: 10
   _currentMoney: 0
@@ -8064,6 +8064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 895343770621607133, guid: da6d6be3602ae42428beeb4d739d53d7, type: 3}
+  arrowPrefab: {fileID: 0}
   firePoint: {fileID: 330490623}
   _damageText: {fileID: 1526733558}
   damage: 3

@@ -22,6 +22,21 @@ public class GameInput : MonoBehaviour
         _playerInputActions.Combat.Attack.started += PlayerAttack_started;
     }
 
+    private void OnDestroy()
+    {
+        if (_playerInputActions != null)
+        {
+            _playerInputActions.Combat.Attack.started -= PlayerAttack_started;
+            _playerInputActions.Disable();
+            _playerInputActions.Dispose();
+        }
+
+        OnPlayerAttack = null;
+
+        if (Instance == this)
+            Instance = null;
+    }
+
     private void PlayerAttack_started(InputAction.CallbackContext obj) 
     {
         OnPlayerAttack?.Invoke(this, EventArgs.Empty);

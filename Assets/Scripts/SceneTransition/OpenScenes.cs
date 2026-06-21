@@ -43,4 +43,25 @@ public class OpenScenes : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("ThirdLevelForWizard");
     }
+    public void OpenFirstArcher()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("FirstLevelForArcher");
+    }
+
+    public void OpenSecondArcher()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("SecondLevelForArcher");
+    }
+    public void OpenThirdArcher()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ThirdLevelForArcher");
+    }
+    public void OpenBoss()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("FinalBossScene");
+    }
 }

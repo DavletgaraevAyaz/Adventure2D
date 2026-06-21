@@ -5,6 +5,7 @@ public class WizardAttack : MonoBehaviour
 {
     [Header("Projectile")]
     [SerializeField] private MagicProjectile projectilePrefab;
+    [SerializeField] private Arrow arrowPrefab;
     [SerializeField] private Transform firePoint;
 
     [Header("Stats")]
@@ -80,6 +81,16 @@ public class WizardAttack : MonoBehaviour
                 Quaternion.identity);
 
         projectile.Initialize(savedDirection, damage);
+    }
+    
+    public void ShootArrow()
+    {
+        Arrow arrowPrefab1 =
+            Instantiate(arrowPrefab,
+                firePoint.position,
+                Quaternion.identity);
+
+        arrowPrefab1.Initialize(savedDirection, damage);
     }
 
     private void LoadDamage()

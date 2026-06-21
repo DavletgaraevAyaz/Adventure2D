@@ -113,6 +113,9 @@ public class EnemyAI : MonoBehaviour {
 
     private void ChasingTarget() 
     {
+        if (!HasValidPlayerTarget())
+            return;
+
         _navMeshAgent.SetDestination(Player.Instance.transform.position);
     }
 
@@ -123,6 +126,9 @@ public class EnemyAI : MonoBehaviour {
 
     private void CheckCurrentState() 
     {
+        if (!HasValidPlayerTarget())
+            return;
+
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
         State newState = State.Roaming;
 
@@ -183,7 +189,8 @@ public class EnemyAI : MonoBehaviour {
             } 
             else if (_currentState == State.Attacking) 
             {
-                ChangeFacingDirection(transform.position, Player.Instance.transform.position);
+                if (HasValidPlayerTarget())
+                    ChangeFacingDirection(transform.position, Player.Instance.transform.position);
             }
 
             _lastPosition = transform.position;
@@ -214,5 +221,10 @@ public class EnemyAI : MonoBehaviour {
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    private bool HasValidPlayerTarget()
+    {
+        return Player.Instance != null && Player.Instance.IsAlive();
     }
 }
